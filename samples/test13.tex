@@ -1,0 +1,88 @@
+%  Time 01: 
+%    Gate 00 h(j0) 
+%    Gate 01 h(j1) 
+%    Gate 02 h(j2) 
+%  Time 02: 
+%    Gate 03 CU4(j0,s0,s1) 
+%  Time 03: 
+%    Gate 04 CU2(j1,s0,s1) 
+%    Gate 06 h(j0) 
+%  Time 04: 
+%    Gate 05 CU(j2,s0,s1) 
+%    Gate 07 c-S(j0,j1) 
+%  Time 05: 
+%    Gate 08 h(j1) 
+%    Gate 09 nop(j0) 
+%  Time 06: 
+%    Gate 10 c-T(j0,j2) 
+%  Time 07: 
+%    Gate 11 c-S(j1,j2) 
+%    Gate 13 nop(j0) 
+%  Time 08: 
+%    Gate 12 h(j2) 
+%    Gate 14 nop(j0) 
+%    Gate 15 nop(j1) 
+%  Time 09: 
+%    Gate 16 measure(j0) 
+%    Gate 17 measure(j1) 
+%    Gate 18 measure(j2) 
+
+% Qubit circuit matrix:
+%% j0: gAxA, gBxA, gCxA, gDxA, gExA, gFxA, gGxA, gHxA, gIxA, N   
+% j1: gAxB, n  , gCxB, gDxB, gExB, n  , gGxB, gHxB, gIxB, N   
+% j2: gAxC, n  , n  , gDxC, n  , gFxC, gGxC, gHxC, gIxC, N   
+% s0: n  , gBxD, gCxD, gDxD, n  , n  , n  , n  , n  , n   
+% s1: n  , gBxE, gCxE, gDxE, n  , n  , n  , n  , n  , n   
+
+\documentclass[11pt]{article}
+\input{xyqcirc.tex}
+
+% definitions for the circuit elements 
+\def\gAxA{\op{H}\w\A{gAxA}}
+\def\gAxB{\op{H}\w\A{gAxB}}
+\def\gAxC{\op{H}\w\A{gAxC}}
+\def\gBxD{\gnqubit{U^4}{d}\w\A{gBxD}}
+\def\gBxE{\gspace{U^4}\w\A{gBxE}}
+\def\gBxA{\b\w\A{gBxA}}
+\def\gCxD{\gnqubit{U}{d}\w\A{gCxD}}
+\def\gCxE{\gspace{U}\w\A{gCxE}}
+\def\gCxB{\b\w\A{gCxB}}
+\def\gDxD{\gnqubit{U}{d}\w\A{gDxD}}
+\def\gDxE{\gspace{U}\w\A{gDxE}}
+\def\gDxC{\b\w\A{gDxC}}
+\def\gCxA{\op{H}\w\A{gCxA}}
+\def\gDxA{\b\w\A{gDxA}}
+\def\gDxB{\op{S}\w\A{gDxB}}
+\def\gExB{\op{H}\w\A{gExB}}
+\def\gExA{*-{}\w\A{gExA}}
+\def\gFxA{\b\w\A{gFxA}}
+\def\gFxC{\op{T}\w\A{gFxC}}
+\def\gGxB{\b\w\A{gGxB}}
+\def\gGxC{\op{S}\w\A{gGxC}}
+\def\gHxC{\op{H}\w\A{gHxC}}
+\def\gGxA{*-{}\w\A{gGxA}}
+\def\gHxA{*-{}\w\A{gHxA}}
+\def\gHxB{*-{}\w\A{gHxB}}
+\def\gIxA{\meter\w\A{gIxA}}
+\def\gIxB{\meter\w\A{gIxB}}
+\def\gIxC{\meter\w\A{gIxC}}
+
+% definitions for bit labels and initial states 
+\def\bA{\qv{j_{0}}{0}}
+\def\bB{\qv{j_{1}}{0}}
+\def\bC{\qv{j_{2}}{0}}
+\def\bD{ \q{s_{0}}}
+\def\bE{ \q{s_{1}}}
+
+% The quantum circuit as an xymatrix 
+\xymatrix@R=5pt@C=10pt{ 
+    \bA & \gAxA &\gBxA &\gCxA &\gDxA &\gExA &\gFxA &\gGxA &\gHxA &\gIxA &\N  
+\\  \bB & \gAxB &\n   &\gCxB &\gDxB &\gExB &\n   &\gGxB &\gHxB &\gIxB &\N  
+\\  \bC & \gAxC &\n   &\n   &\gDxC &\n   &\gFxC &\gGxC &\gHxC &\gIxC &\N  
+\\  \bD & \n   &\gBxD &\gCxD &\gDxD &\n   &\n   &\n   &\n   &\n   &\n  
+\\  \bE & \n   &\gBxE &\gCxE &\gDxE &\n   &\n   &\n   &\n   &\n   &\n  
+% 
+% Vertical lines and other post-xymatrix latex % 
+\ar@{-}"gBxD";"gBxA"\ar@{-}"gCxD";"gCxB"\ar@{-}"gDxD";"gDxC"\ar@{-}"gDxB";"gDxA"\ar@{-}"gFxC";"gFxA"\ar@{-}"gGxC";"gGxB"}
+ 
+\end{document}

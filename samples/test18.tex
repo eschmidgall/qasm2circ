@@ -1,0 +1,45 @@
+%  Time 01: 
+%    Gate 00 nop(q0) 
+%    Gate 01 nop(q2) 
+%  Time 02: 
+%    Gate 02 Z4(q0,q1,q2,q3) 
+%  Time 03: 
+%    Gate 03 MeasH(q1) 
+%    Gate 04 MeasH(q2) 
+
+% Qubit circuit matrix:
+%% q0: gAxA, gBxA, n  , n   
+% q1: n  , gBxB, gCxB, N   
+% q2: gAxC, gBxC, gCxC, N   
+% q3: n  , gBxD, n  , n   
+
+\documentclass[11pt]{article}
+\input{xyqcirc.tex}
+
+% definitions for the circuit elements 
+\def\gAxA{*-{}\w\A{gAxA}}
+\def\gAxC{*-{}\w\A{gAxC}}
+\def\gBxA{\b\w\A{gBxA}}
+\def\gBxB{\b\w\A{gBxB}}
+\def\gBxC{\b\w\A{gBxC}}
+\def\gBxD{\b\w\A{gBxD}}
+\def\gCxB{\dmeter{H}\w\A{gCxB}}
+\def\gCxC{\dmeter{H}\w\A{gCxC}}
+
+% definitions for bit labels and initial states 
+\def\bA{\qv{q_{0}}{\psi}}
+\def\bB{\qv{q_{1}}{+}}
+\def\bC{\qv{q_{2}}{+}}
+\def\bD{\qv{q_{3}}{\phi}}
+
+% The quantum circuit as an xymatrix 
+\xymatrix@R=5pt@C=10pt{ 
+    \bA & \gAxA &\gBxA &\n   &\n  
+\\  \bB & \n   &\gBxB &\gCxB &\N  
+\\  \bC & \gAxC &\gBxC &\gCxC &\N  
+\\  \bD & \n   &\gBxD &\n   &\n  
+% 
+% Vertical lines and other post-xymatrix latex % 
+\ar@{-}"gBxD";"gBxA"\ar@{-}"gBxD";"gBxB"\ar@{-}"gBxD";"gBxC"}
+ 
+\end{document}

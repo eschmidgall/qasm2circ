@@ -1,0 +1,35 @@
+%  Time 01: 
+%    Gate 00 cnot(q0,q1) 
+%  Time 02: 
+%    Gate 01 cnot(q1,q0) 
+%  Time 03: 
+%    Gate 02 cnot(q0,q1) 
+
+% Qubit circuit matrix:
+%% q0: gAxA, gBxA, gCxA, n   
+% q1: gAxB, gBxB, gCxB, n   
+
+\documentclass[11pt]{article}
+\input{xyqcirc.tex}
+
+% definitions for the circuit elements 
+\def\gAxA{\b\w\A{gAxA}}
+\def\gAxB{\o\w\A{gAxB}}
+\def\gBxB{\b\w\A{gBxB}}
+\def\gBxA{\o\w\A{gBxA}}
+\def\gCxA{\b\w\A{gCxA}}
+\def\gCxB{\o\w\A{gCxB}}
+
+% definitions for bit labels and initial states 
+\def\bA{ \q{q_{0}}}
+\def\bB{ \q{q_{1}}}
+
+% The quantum circuit as an xymatrix 
+\xymatrix@R=5pt@C=10pt{ 
+    \bA & \gAxA &\gBxA &\gCxA &\n  
+\\  \bB & \gAxB &\gBxB &\gCxB &\n  
+% 
+% Vertical lines and other post-xymatrix latex % 
+\ar@{-}"gAxB";"gAxA"\ar@{-}"gBxA";"gBxB"\ar@{-}"gCxB";"gCxA"}
+ 
+\end{document}

@@ -1,0 +1,132 @@
+%  Time 01: 
+%    Gate 00 h(s0) 
+%  Time 02: 
+%    Gate 01 cnot(s0,s1) 
+%  Time 03: 
+%    Gate 02 cnot(q0,s0) 
+%    Gate 03 nop(s1) 
+%  Time 04: 
+%    Gate 04 cnot(q1,s1) 
+%  Time 05: 
+%    Gate 05 cnot(s0,s1) 
+%  Time 06: 
+%    Gate 06 h(s0) 
+%    Gate 08 nop(s1) 
+%  Time 07: 
+%    Gate 07 measure(s0) 
+%    Gate 09 measure(s1) 
+%  Time 08: 
+%    Gate 10 cnot(s0,c0) 
+%    Gate 11 nop(s1) 
+%  Time 09: 
+%    Gate 12 cnot(s1,c1) 
+%    Gate 13 space(s0) 
+%  Time 10: 
+%    Gate 14 zero(s0) 
+%    Gate 15 zero(s1) 
+%  Time 11: 
+%    Gate 16 h(s0) 
+%  Time 12: 
+%    Gate 17 cnot(s0,s1) 
+%  Time 13: 
+%    Gate 18 cnot(q1,s0) 
+%    Gate 19 nop(s1) 
+%  Time 14: 
+%    Gate 20 cnot(q2,s1) 
+%  Time 15: 
+%    Gate 21 cnot(s0,s1) 
+%  Time 16: 
+%    Gate 22 h(s0) 
+%    Gate 24 nop(s1) 
+%  Time 17: 
+%    Gate 23 measure(s0) 
+%    Gate 25 measure(s1) 
+%  Time 18: 
+%    Gate 26 synd(s0,s1,c0,c1) 
+%  Time 19: 
+%    Gate 27 rop(s0,s1,c0,c1,q0,q1,q2) 
+
+% Qubit circuit matrix:
+%% q0: n  , n  , gCxA, n  , n  , n  , n  , n  , n  , n  , n  , n  , n  , n  , n  , n  , n  , n  , gSxA, n   
+% q1: n  , n  , n  , gDxB, n  , n  , n  , n  , n  , n  , n  , n  , gMxB, n  , n  , n  , n  , n  , gSxB, n   
+% q2: n  , n  , n  , n  , n  , n  , n  , n  , n  , n  , n  , n  , n  , gNxC, n  , n  , n  , n  , gSxC, n   
+% s0: gAxD, gBxD, gCxD, n  , gExD, gFxD, gGxD, gHxD, gIxD, gJxD, gKxD, gLxD, gMxD, n  , gOxD, gPxD, gQxD, gRxD, gSxD, N   
+% s1: n  , gBxE, gCxE, gDxE, gExE, gFxE, gGxE, gHxE, gIxE, gJxE, n  , gLxE, gMxE, gNxE, gOxE, gPxE, gQxE, gRxE, gSxE, N   
+% c0: N  , N  , N  , N  , N  , N  , N  , gHxF, N  , N  , N  , N  , N  , N  , N  , N  , N  , gRxF, gSxF, N   
+% c1: N  , N  , N  , N  , N  , N  , N  , N  , gIxG, N  , N  , N  , N  , N  , N  , N  , N  , gRxG, gSxG, N   
+
+\documentclass[11pt]{article}
+\input{xyqcirc.tex}
+
+% definitions for the circuit elements 
+\def\gAxD{\op{H}\w\A{gAxD}}
+\def\gBxD{\b\w\A{gBxD}}
+\def\gBxE{\o\w\A{gBxE}}
+\def\gCxA{\b\w\A{gCxA}}
+\def\gCxD{\o\w\A{gCxD}}
+\def\gCxE{*-{}\w\A{gCxE}}
+\def\gDxB{\b\w\A{gDxB}}
+\def\gDxE{\o\w\A{gDxE}}
+\def\gExD{\b\w\A{gExD}}
+\def\gExE{\o\w\A{gExE}}
+\def\gFxD{\op{H}\w\A{gFxD}}
+\def\gGxD{\meter\w\A{gGxD}}
+\def\gFxE{*-{}\w\A{gFxE}}
+\def\gGxE{\meter\w\A{gGxE}}
+\def\gHxD{\b\W\A{gHxD}}
+\def\gHxF{\o\W\A{gHxF}}
+\def\gHxE{*-{}\W\A{gHxE}}
+\def\gIxE{\b\W\A{gIxE}}
+\def\gIxG{\o\W\A{gIxG}}
+\def\gIxD{\A{gIxD}}
+\def\gJxD{\z\A{gJxD}}
+\def\gJxE{\z\A{gJxE}}
+\def\gKxD{\op{H}\w\A{gKxD}}
+\def\gLxD{\b\w\A{gLxD}}
+\def\gLxE{\o\w\A{gLxE}}
+\def\gMxB{\b\w\A{gMxB}}
+\def\gMxD{\o\w\A{gMxD}}
+\def\gMxE{*-{}\w\A{gMxE}}
+\def\gNxC{\b\w\A{gNxC}}
+\def\gNxE{\o\w\A{gNxE}}
+\def\gOxD{\b\w\A{gOxD}}
+\def\gOxE{\o\w\A{gOxE}}
+\def\gPxD{\op{H}\w\A{gPxD}}
+\def\gQxD{\meter\w\A{gQxD}}
+\def\gPxE{*-{}\w\A{gPxE}}
+\def\gQxE{\meter\w\A{gQxE}}
+\def\gRxD{\gnqubit{\txt{Process\\Syndrome}}{ddd}\W\A{gRxD}}
+\def\gRxE{\gspace{\txt{Process\\Syndrome}}\W\A{gRxE}}
+\def\gRxF{\gspace{\txt{Process\\Syndrome}}\W\A{gRxF}}
+\def\gRxG{\gspace{\txt{Process\\Syndrome}}\W\A{gRxG}}
+\def\gSxA{\gnqubit{{\cal R}}{dd}\w\A{gSxA}}
+\def\gSxB{\gspace{{\cal R}}\w\A{gSxB}}
+\def\gSxC{\gspace{{\cal R}}\w\A{gSxC}}
+\def\gSxD{\b\W\A{gSxD}}
+\def\gSxE{\b\W\A{gSxE}}
+\def\gSxF{\b\W\A{gSxF}}
+\def\gSxG{\b\W\A{gSxG}}
+
+% definitions for bit labels and initial states 
+\def\bA{ \q{q_{0}}}
+\def\bB{ \q{q_{1}}}
+\def\bC{ \q{q_{2}}}
+\def\bD{\qv{s_{0}}{0}}
+\def\bE{\qv{s_{1}}{0}}
+\def\bF{   {c_{0} = 0}}
+\def\bG{   {c_{1} = 0}}
+
+% The quantum circuit as an xymatrix 
+\xymatrix@R=5pt@C=10pt{ 
+    \bA & \n   &\n   &\gCxA &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\gSxA &\n  
+\\  \bB & \n   &\n   &\n   &\gDxB &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\gMxB &\n   &\n   &\n   &\n   &\n   &\gSxB &\n  
+\\  \bC & \n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\n   &\gNxC &\n   &\n   &\n   &\n   &\gSxC &\n  
+\\  \bD & \gAxD &\gBxD &\gCxD &\n   &\gExD &\gFxD &\gGxD &\gHxD &\gIxD &\gJxD &\gKxD &\gLxD &\gMxD &\n   &\gOxD &\gPxD &\gQxD &\gRxD &\gSxD &\N  
+\\  \bE & \n   &\gBxE &\gCxE &\gDxE &\gExE &\gFxE &\gGxE &\gHxE &\gIxE &\gJxE &\n   &\gLxE &\gMxE &\gNxE &\gOxE &\gPxE &\gQxE &\gRxE &\gSxE &\N  
+\\  \bF & \N   &\N   &\N   &\N   &\N   &\N   &\N   &\gHxF &\N   &\N   &\N   &\N   &\N   &\N   &\N   &\N   &\N   &\gRxF &\gSxF &\N  
+\\  \bG & \N   &\N   &\N   &\N   &\N   &\N   &\N   &\N   &\gIxG &\N   &\N   &\N   &\N   &\N   &\N   &\N   &\N   &\gRxG &\gSxG &\N  
+% 
+% Vertical lines and other post-xymatrix latex % 
+\ar@{-}"gBxE";"gBxD"\ar@{-}"gCxD";"gCxA"\ar@{-}"gDxE";"gDxB"\ar@{-}"gExE";"gExD"\ar@{=}"gHxF";"gHxD"\ar@{=}"gIxG";"gIxE"\ar@{-}"gLxE";"gLxD"\ar@{-}"gMxD";"gMxB"\ar@{-}"gNxE";"gNxC"\ar@{-}"gOxE";"gOxD"\ar@{=}"gSxC";"gSxD"\ar@{=}"gSxC";"gSxE"\ar@{=}"gSxC";"gSxF"\ar@{=}"gSxC";"gSxG"}
+ 
+\end{document}

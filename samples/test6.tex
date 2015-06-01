@@ -1,0 +1,48 @@
+%  Time 01: 
+%    Gate 00 toffoli(j0,j1,j2) 
+%  Time 02: 
+%    Gate 01 X(j0) 
+%  Time 03: 
+%    Gate 02 c-U(j2,j3,j0,j1) 
+%  Time 04: 
+%    Gate 03 H(j2) 
+%    Gate 04 measure(j3) 
+
+% Qubit circuit matrix:
+%% j0: gAxA, gBxA, gCxA, n  , n   
+% j1: gAxB, n  , gCxB, n  , n   
+% j2: gAxC, n  , gCxC, gDxC, n   
+% j3: n  , n  , gCxD, gDxD, N   
+
+\documentclass[11pt]{article}
+\input{xyqcirc.tex}
+
+% definitions for the circuit elements 
+\def\gAxA{\b\w\A{gAxA}}
+\def\gAxB{\b\w\A{gAxB}}
+\def\gAxC{\o\w\A{gAxC}}
+\def\gBxA{\op{X}\w\A{gBxA}}
+\def\gCxC{\b\w\A{gCxC}}
+\def\gCxD{\b\w\A{gCxD}}
+\def\gCxA{\b\w\A{gCxA}}
+\def\gCxB{\op{U}\w\A{gCxB}}
+\def\gDxC{\op{H}\w\A{gDxC}}
+\def\gDxD{\meter\w\A{gDxD}}
+
+% definitions for bit labels and initial states 
+\def\bA{ \q{j_{0}}}
+\def\bB{ \q{j_{1}}}
+\def\bC{ \q{j_{2}}}
+\def\bD{ \q{j_{3}}}
+
+% The quantum circuit as an xymatrix 
+\xymatrix@R=5pt@C=10pt{ 
+    \bA & \gAxA &\gBxA &\gCxA &\n   &\n  
+\\  \bB & \gAxB &\n   &\gCxB &\n   &\n  
+\\  \bC & \gAxC &\n   &\gCxC &\gDxC &\n  
+\\  \bD & \n   &\n   &\gCxD &\gDxD &\N  
+% 
+% Vertical lines and other post-xymatrix latex % 
+\ar@{-}"gAxC";"gAxA"\ar@{-}"gAxC";"gAxB"\ar@{-}"gCxB";"gCxC"\ar@{-}"gCxB";"gCxD"\ar@{-}"gCxB";"gCxA"}
+ 
+\end{document}

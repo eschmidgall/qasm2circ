@@ -1,0 +1,54 @@
+%  Time 01: 
+%    Gate 00 nop(q0) 
+%    Gate 03 nop(q1) 
+%  Time 02: 
+%    Gate 01 nop(q0) 
+%    Gate 04 ZZ(q1,q2) 
+%  Time 03: 
+%    Gate 02 slash(q0) 
+%    Gate 05 cnot(q2,q3) 
+%  Time 04: 
+%    Gate 06 nop(q2) 
+%    Gate 08 dmeter(q3) 
+%  Time 05: 
+%    Gate 07 discard(q2) 
+
+% Qubit circuit matrix:
+%% q0: gAxA, gBxA, gCxA, n  , n  , n   
+% q1: gAxB, gBxB, n  , n  , n  , n   
+% q2: n  , gBxC, gCxC, gDxC, gExC 
+% q3: n  , n  , gCxD, gDxD, N  , N   
+
+\documentclass[11pt]{article}
+\input{xyqcirc.tex}
+
+% definitions for the circuit elements 
+\def\gAxA{*-{}\w\A{gAxA}}
+\def\gBxA{*-{}\w\A{gBxA}}
+\def\gCxA{\slash\w\A{gCxA}}
+\def\gAxB{*-{}\w\A{gAxB}}
+\def\gBxB{\b\w\A{gBxB}}
+\def\gBxC{\b\w\A{gBxC}}
+\def\gCxC{\b\w\A{gCxC}}
+\def\gCxD{\o\w\A{gCxD}}
+\def\gDxC{*-{}\w\A{gDxC}}
+\def\gExC{\discard\w\A{gExC}}
+\def\gDxD{\dmeter{}\w\A{gDxD}}
+
+% definitions for bit labels and initial states 
+\def\bA{\qv{q_{0}}{\psi}}
+\def\bB{\qv{q_{1}}{\psi}}
+\def\bC{\qv{q_{2}}{\phi}}
+\def\bD{\qv{q_{3}}{0}}
+
+% The quantum circuit as an xymatrix 
+\xymatrix@R=5pt@C=10pt{ 
+    \bA & \gAxA &\gBxA &\gCxA &\n   &\n   &\n  
+\\  \bB & \gAxB &\gBxB &\n   &\n   &\n   &\n  
+\\  \bC & \n   &\gBxC &\gCxC &\gDxC &\gExC
+\\  \bD & \n   &\n   &\gCxD &\gDxD &\N   &\N  
+% 
+% Vertical lines and other post-xymatrix latex % 
+\ar@{-}"gBxB";"gBxC"\ar@{-}"gCxD";"gCxC"}
+ 
+\end{document}
