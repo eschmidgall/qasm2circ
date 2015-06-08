@@ -1,0 +1,232 @@
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.3.10)  1 JUN 2015 14:18
+entering extended mode
+**./samples/test9.tex
+(c:\Users\emmas\Documents\GitHub\qasm2circ\samples\test9.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2012-05-30, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
+ lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
+german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
+ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
+an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
+ishmax, welsh, loaded.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size11.clo"
+File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(c:\Users\emmas\Documents\GitHub\qasm2circ\xyqcirc.tex
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xypic\xy.sty"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xypic\xy.tex" Bootstrap'ing:
+catcodes, docmode,
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xypic\xyrecat.tex")
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xypic\xyidioms.tex")
+
+ Xy-pic version 3.8.8 <2012/05/24>
+ Copyright (c) 1991-2011 by Kristoffer H. Rose <krisrose@tug.org>
+ Xy-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\X@c=\dimen105
+\Y@c=\dimen106
+\U@c=\dimen107
+\D@c=\dimen108
+\L@c=\dimen109
+\R@c=\dimen110
+\Edge@c=\toks15
+\X@p=\dimen111
+\Y@p=\dimen112
+\U@p=\dimen113
+\D@p=\dimen114
+\L@p=\dimen115
+\R@p=\dimen116
+\Edge@p=\toks16
+\X@origin=\dimen117
+\Y@origin=\dimen118
+\X@xbase=\dimen119
+\Y@xbase=\dimen120
+\X@ybase=\dimen121
+\Y@ybase=\dimen122
+\X@min=\dimen123
+\Y@min=\dimen124
+\X@max=\dimen125
+\Y@max=\dimen126
+\lastobjectbox@=\box26
+\zerodotbox@=\box27
+\almostz@=\dimen127
+ direction,
+\d@X=\dimen128
+\d@Y=\dimen129
+\K@=\count88
+\KK@=\count89
+\Direction=\count90
+\K@dXdY=\dimen130
+\K@dYdX=\dimen131
+\xyread@=\read1
+\xywrite@=\write3
+\csp@=\count91
+\quotPTK@=\dimen132
+
+utility macros; pictures: \xy, positions,
+\swaptoks@@=\toks17
+\connectobjectbox@@=\box28
+ objects,
+\styletoks@=\toks18
+ decorations;
+kernel objects: directionals, circles, text; options; algorithms: directions,
+edges, connections;  Xy-pic loaded)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package: xy 2012/05/24 Xy-pic version 3.8.8
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xypic\xyframe.tex"
+ Xy-pic option: Frame and Bracket extension v.3.14 loaded)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xypic\xyline.tex"
+ Xy-pic option: Line styles extension v.3.10
+\xylinethick@=\dimen133
+ loaded)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xypic\xyarrow.tex"
+ Xy-pic option: Arrow and Path feature v.3.9 path, \ar, loaded)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xypic\xymatrix.tex"
+ Xy-pic option: Matrix feature v.3.14
+\Row=\count92
+\Col=\count93
+\queue@=\toks19
+\queue@@=\toks20
+\qcount@=\count94
+\qcount@@=\count95
+\matrixsize@=\count96
+ loaded)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xypic\xytips.tex"
+ Xy-pic option: More Tips extension v.3.9 loaded)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xypic\xypdf.tex"
+ Xy-pic option: PDF driver v.1.7 Xy-pic pdf driver: `frame' extension support
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xypic\xypdf-fr.tex"
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xypic\xycurve.tex"
+ Xy-pic option: Curve and Spline extension v.3.12 curve,
+\crv@cnt@=\count97
+\crvpts@=\toks21
+\splinebox@=\box29
+\splineval@=\dimen134
+\splinedepth@=\dimen135
+\splinetol@=\dimen136
+\splinelength@=\dimen137
+ circles,
+\L@=\dimen138
+ loaded)
+Xy-pic pdf driver: `curve' extension support
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xypic\xypdf-cu.tex" loaded)
+loaded) Xy-pic pdf driver: `line' extension support
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\xypic\xypdf-li.tex" loaded)
+loaded))
+\@indexfile=\write4
+
+Writing index file test9.idx
+No file test9.aux.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 80.
+LaTeX Font Info:    ... okay on input line 80.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count98
+\scratchdimen=\dimen139
+\scratchbox=\box30
+\nofMPsegments=\count99
+\nofMParguments=\count100
+\everyMPshowfont=\toks22
+\MPscratchCnt=\count101
+\MPscratchDim=\dimen140
+\MPnumerator=\count102
+\makeMPintoPDFobject=\count103
+\everyMPtoPDFconversion=\toks23
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 80.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 80.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 80.
+Package xypdf Info: Line width: 0.39998pt on input line 80.
+\sbox=\box31
+) <xymatrix 7x3 923> [1
+
+{C:/Users/emmas/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (c:\Users\e
+mmas\Documents\GitHub\qasm2circ\samples\test9.aux) ) 
+Here is how much of TeX's memory you used:
+ 3662 strings out of 493921
+ 45111 string characters out of 3144876
+ 146592 words of memory out of 3000000
+ 6946 multiletter control sequences out of 15000+200000
+ 7804 words of font info for 32 fonts, out of 3000000 for 9000
+ 841 hyphenation exceptions out of 8191
+ 29i,11n,27p,1478b,328s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files (x86)/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files (x86)/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on c:/Users/emmas/Documents/GitHub/qasm2circ/samples/test9.pdf (
+1 page, 33983 bytes).
+PDF statistics:
+ 22 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
