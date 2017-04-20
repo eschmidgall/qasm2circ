@@ -18,12 +18,12 @@
 # cbit    name,initval
 # measure qubit
 # H       qubit
-# X	  qubit
-# Y	  qubit
-# Z	  qubit
+# X   qubit
+# Y   qubit
+# Z   qubit
 # S       qubit
 # T       qubit
-# nop	  qubit
+# nop     qubit
 # zero    qubit
 # discard qubit
 # slash   qubit
@@ -186,36 +186,36 @@ from string import *
 
 #-----------------------------------------------------------------------------
 
-def do_error(msg):	# global error handler
+def do_error(msg):  # global error handler
     sys.stderr.write('ERROR: ' + msg + '\n')
     sys.exit(-1)
 
 #-----------------------------------------------------------------------------
 
-def num2name(num):	# convert a number to a name
-	if( num == 0 ):
-	  return "";
-	elif( num <= 26 ):
-	  return chr(num+64)
-	else:
-	  return chr( (num % 26) + 64) + num2name(num/26)
+def num2name(num):  # convert a number to a name
+    if( num == 0 ):
+      return "";
+    elif( num <= 26 ):
+      return chr(num+64)
+    else:
+      return chr( (num % 26) + 64) + num2name(num/26)
 
 #-----------------------------------------------------------------------------
 
-class qgate:		# quantum gate class
+class qgate:        # quantum gate class
 
     def __init__(self,op,args,linenum):
 
-        self.name = op			# gate name
-        self.args = args		# arguments to gate
-        self.qubits = args.split(',')	# name of qubits we act upon
-        self.timeseq = 0		# time sequence number
-        self.id = 0			# gate ID number (unique)
-        self.endtex = ''		# latex to output after xymatrix
-        self.xy = {}			# gate xy ID table
-        self.yloc = {}			# y-location of qubits we act upon
-        self.wiretype = {}		# wire type for this gate/qubit
-        self.linenum = linenum		# line number of input where gate used
+        self.name = op          # gate name
+        self.args = args        # arguments to gate
+        self.qubits = args.split(',')   # name of qubits we act upon
+        self.timeseq = 0        # time sequence number
+        self.id = 0         # gate ID number (unique)
+        self.endtex = ''        # latex to output after xymatrix
+        self.xy = {}            # gate xy ID table
+        self.yloc = {}          # y-location of qubits we act upon
+        self.wiretype = {}      # wire type for this gate/qubit
+        self.linenum = linenum      # line number of input where gate used
 
         # do a quick syntax check to make sure number of operands is correct
         # and that the gate exists
@@ -237,71 +237,71 @@ class qgate:		# quantum gate class
             s = (self.linenum, self.name + " " + self.args)
             do_error("[qgate] OOPS! line %d duplicate bit operands in %s" % s)
 
-    def set_bittype(self,qb,cbit):	# set qubit type (cbit/qbit)
+    def set_bittype(self,qb,cbit):  # set qubit type (cbit/qbit)
         self.wiretype[qb] = cbit
 
-    def make_id(self,qb2idx):		# make gate ID's, eg gAB
+    def make_id(self,qb2idx):       # make gate ID's, eg gAB
         for qb in self.qubits:
             self.xy[qb] = self.xyid(qb2idx[qb])
-            self.yloc[qb] = qb2idx[qb]	# y (vertical) location of qubit
+            self.yloc[qb] = qb2idx[qb]  # y (vertical) location of qubit
 
-    def xid(self):			# return ID string for gate timestep
+    def xid(self):          # return ID string for gate timestep
         return('g%s' % (num2name(self.timeseq)))
 
-    def xyid(self,qubitnum):		# return ID string for gate/qubit
+    def xyid(self,qubitnum):        # return ID string for gate/qubit
         return('%s%s%s' % (self.xid(),'x',num2name(qubitnum)))
 
-    def latex(self):			# output latex/xypic/xyqcirc for gate
+    def latex(self):            # output latex/xypic/xyqcirc for gate
 
-        def defid(k,op):		# latex def for given gate & qubit
+        def defid(k,op):        # latex def for given gate & qubit
             myid = self.xy[self.qubits[k]]
-            wires = ['\w','\W']		# \w = single, \W = double wire
+            wires = ['\w','\W']     # \w = single, \W = double wire
             mywire = wires[self.wiretype[self.qubits[k]]]
             return('\def\%s{%s%s\A{%s}}' % (myid,op,mywire,myid))
 
-        def get_wiretype(qubits):	# figure out wire type for verticals
+        def get_wiretype(qubits):   # figure out wire type for verticals
             # if any control is classical (double-wire) then all should be
             if(sum([ self.wiretype[x] for x in qubits])>0):
-                wt = '='		# wire type = cbit
+                wt = '='        # wire type = cbit
             else:
-                wt = '-'		# wire type = qubit
+                wt = '-'        # wire type = qubit
             return(wt)
 
-        def do_multiqubit(nbits,nctrl,u):	# multiple-qubit operation
+        def do_multiqubit(nbits,nctrl,u):   # multiple-qubit operation
             # first do target qubits (big box)
             s = []
             targets = self.qubits[nctrl:]
             ytab = [ self.yloc[qb] for qb in targets ]
-            idx = ytab.index(min(ytab))	# find which qubit is first
-            qb = targets[idx]		# handle first qubit specially
+            idx = ytab.index(min(ytab)) # find which qubit is first
+            qb = targets[idx]       # handle first qubit specially
 
-            ytop = min(ytab)		# remember y location & ID of top qubit
+            ytop = min(ytab)        # remember y location & ID of top qubit
             xytop = self.xy[qb]
-            ybot = max(ytab)		# and bottom
+            ybot = max(ytab)        # and bottom
             xybot = self.xy[targets[ytab.index(ybot)]]
 
-            myid = self.xy[qb]		# top qubit gets \gnqubit{u}{ddd...}
+            myid = self.xy[qb]      # top qubit gets \gnqubit{u}{ddd...}
             dstr = 'd'*(nbits-nctrl-1)
-            wires = ['\w','\W']		# \w = single, \W = double wire
+            wires = ['\w','\W']     # \w = single, \W = double wire
             w = wires[self.wiretype[qb]]
             s.append(r'\def\%s{\gnqubit{%s}{%s}%s\A{%s}}'%(myid,u,dstr,w,myid))
             firstqb = qb
-            for qb in targets:		# loop over target bits
-                if (qb==firstqb):	# skip first qubit
+            for qb in targets:      # loop over target bits
+                if (qb==firstqb):   # skip first qubit
                     continue
-                myid = self.xy[qb]	# non-first bits get \gspace{u}
+                myid = self.xy[qb]  # non-first bits get \gspace{u}
                 w = wires[self.wiretype[qb]]
                 s.append(r'\def\%s{\gspace{%s}%s\A{%s}}' % (myid,u,w,myid))
                 
             # now do control qubits
             controls = self.qubits[:nctrl]
-            for k in range(nctrl):	# loop over all control qubits
-                s.append(defid(k,r'\b'))		# bullets on controls
+            for k in range(nctrl):  # loop over all control qubits
+                s.append(defid(k,r'\b'))        # bullets on controls
 
             # create vertical wires
             # if any control is classical (double-wire) then all should be
             wt = get_wiretype(controls)
-            for qb in controls: 	# loop over all ctrl qubits
+            for qb in controls:     # loop over all ctrl qubits
                 # endtex = latex commands which appear after xymatrix body
                 # such as the vertical wires
                 if self.yloc[qb] < ytop:
@@ -310,18 +310,19 @@ class qgate:		# quantum gate class
                     self.endtex += r'\ar@{%c}"%s";"%s"' %(wt,xybot,self.xy[qb])
 
             # done with multi-qubit op
-            #return(join(s,'\n'))		# return with latex def's
-	    return('\n'.join(s))
-			
-        def ctrl_op(nctrl,u):		# controlled operation
+            #return(join(s,'\n'))       # return with latex def's
+            return('\n'.join(s))
+            
+        def ctrl_op(nctrl,u):       # controlled operation
             s = []
-            for k in range(nctrl):	# loop over all control qubits
-                s.append(defid(k,r'\b'))		# bullets on controls
-            s.append(defid(nctrl,u))	# add target op 
-            s = join(s,'\n')
+            for k in range(nctrl):  # loop over all control qubits
+                s.append(defid(k,r'\b'))        # bullets on controls
+            s.append(defid(nctrl,u))    # add target op 
+            #s = join(s,'\n')
+            s = "\n".join(s)
 
             # create vertical wires
-            qbtarget = self.xy[self.qubits[-1]]	
+            qbtarget = self.xy[self.qubits[-1]] 
             wt = get_wiretype(self.qubits[0:-1])
             for qb in self.qubits[0:-1]: # loop over all ctrl-target pairs
                 # endtex = latex commands which appear after xymatrix body
@@ -348,63 +349,63 @@ class qgate:		# quantum gate class
 
         # main routine to generate latex
         (nbits, nctrl, texsym) = GateMasterDef[self.name]
-        if(self.name=='zero'):		# special for zero: no wire
+        if(self.name=='zero'):      # special for zero: no wire
             myid = self.xy[self.qubits[0]]
             return('\def\%s{%s\A{%s}}' % (myid,texsym,myid))
-        if(self.name=='space'):		# special for space: no wire
+        if(self.name=='space'):     # special for space: no wire
             myid = self.xy[self.qubits[0]]
             return('\def\%s{\A{%s}}' % (myid,myid))
-        if(self.name=='ZZ'):		# special for ZZ gate
+        if(self.name=='ZZ'):        # special for ZZ gate
             return(double_sym_gate(texsym))
-        if(self.name=='SS'):		# special for SS gate
+        if(self.name=='SS'):        # special for SS gate
             return(double_sym_gate(texsym))
-        if(self.name=='swap'):		# special for swap gate
+        if(self.name=='swap'):      # special for swap gate
             return(double_sym_gate(texsym))
-        if(nbits-nctrl>1):			# multi-qubit gate
+        if(nbits-nctrl>1):          # multi-qubit gate
             check_multi_qubit_gate_targets(nctrl)
             return(do_multiqubit(nbits,nctrl,texsym))
         if(nctrl==0):
-            return(defid(0,texsym))		# single qubit op
+            return(defid(0,texsym))     # single qubit op
         else: 
-            return(ctrl_op(nctrl,texsym))	# controlled-single-qubit op
+            return(ctrl_op(nctrl,texsym))   # controlled-single-qubit op
 
 #-----------------------------------------------------------------------------
 
-class qasm_parser:	# parser for qasm; inputs lines, returns
-    			# tables of comments, names, and gates
+class qasm_parser:  # parser for qasm; inputs lines, returns
+                # tables of comments, names, and gates
 
     def __init__(self,fp):
 
-        self.nametab = []	# table of bit names
-        self.gatetab = []	# table of gates
-        self.typetab = []	# table of bit types (0=qubit, 1=cbit)
-        self.comments = ''	# string with comments from original qasm file
+        self.nametab = []   # table of bit names
+        self.gatetab = []   # table of gates
+        self.typetab = []   # table of bit types (0=qubit, 1=cbit)
+        self.comments = ''  # string with comments from original qasm file
 
-        linenum = 0		# line number counting, for error messages
+        linenum = 0     # line number counting, for error messages
         
-        for line in fp:		# loop over input lines
+        for line in fp:     # loop over input lines
 
-            linenum += 1	# line number counter
+            linenum += 1    # line number counter
             
             if(line[0]=='#'):
                 self.comments += line 
                 continue
             else:
-                self.comments += "% " + line 	# optional - include all input
+                self.comments += "% " + line    # optional - include all input
 
             # qubit spec - syntax: qubit name
             m = re.compile('\s+qubit\s+(\S+)').search(line)
             if(m):
-                self.nametab.append(m.group(1))	# add name
-                self.typetab.append(0)		# add as qubit
+                self.nametab.append(m.group(1)) # add name
+                self.typetab.append(0)      # add as qubit
                 # print "qubit: %s" % m.group(1)
                 continue
 
             # cbit spec - syntax: cbit name
             m = re.compile('\s+cbit\s+(\S+)').search(line)
             if(m):
-                self.nametab.append(m.group(1))	# add name
-                self.typetab.append(1)		# add as cbit
+                self.nametab.append(m.group(1)) # add name
+                self.typetab.append(1)      # add as cbit
                 # print "cbit: %s" % m.group(1)
                 continue
 
@@ -414,7 +415,7 @@ class qasm_parser:	# parser for qasm; inputs lines, returns
             if(m):
                 (name,nctrl) = m.group(1).split(',')
                 tex = m.group(2)
-                if(tex=='bullet'):	      # special for bullet, no \op{}
+                if(tex=='bullet'):        # special for bullet, no \op{}
                     texsym = r'\b'
                 elif(tex.find(r'\dmeter')>=0):  # if meas, don't put in \op{}
                     texsym = tex
@@ -422,7 +423,7 @@ class qasm_parser:	# parser for qasm; inputs lines, returns
                     texsym = '\op{%s}' % tex
                 nctrl = int(nctrl)
                 if (name in GateMasterDef):
-                    print "[qasm_parser] oops! duplicate def for op %s" % line
+                    print ("[qasm_parser] oops! duplicate def for op %s" )% line
                 else:
                     GateMasterDef[name] = (nctrl+1, nctrl, texsym)
                 # print "definition: %s" % m.group(1)
@@ -437,7 +438,7 @@ class qasm_parser:	# parser for qasm; inputs lines, returns
                 nbits = int(nbits)
                 nctrl = int(nctrl)
                 if (name in GateMasterDef):
-                    print "[qasm_parser] oops! duplicate def for op %s" % line
+                    print ("[qasm_parser] oops! duplicate def for op %s") % line
                 else:
                     GateMasterDef[name] = (nbits, nctrl, texsym)
                 # print "definition: %s" % m.group(1)
@@ -452,66 +453,66 @@ class qasm_parser:	# parser for qasm; inputs lines, returns
 
 #-----------------------------------------------------------------------------
 
-class qcircuit:		# quantum circuit class
+class qcircuit:     # quantum circuit class
 
     def __init__(self,bitnames,typetab):
 
-        self.initval = {}	# qubit initial values
-        self.is_cbit = {}	# flags to see if a bit is qubit or cbit
-        self.setnames(bitnames,typetab)	# set names & types of qubits
-        self.qbtab = {}		# initialize qubit table (assoc array)
-				# each element in qbtab holds an array
+        self.initval = {}   # qubit initial values
+        self.is_cbit = {}   # flags to see if a bit is qubit or cbit
+        self.setnames(bitnames,typetab) # set names & types of qubits
+        self.qbtab = {}     # initialize qubit table (assoc array)
+                # each element in qbtab holds an array
                                 # of IDs for gates acting on that qubit
-        self.qb2idx = {}	# translate from name to index
+        self.qb2idx = {}    # translate from name to index
         k = 1
-        for name in self.qubitnames:	# create index for name->idx translate
-            self.qbtab[name] = []	# array of gates on this qubit
-            self.qb2idx[name] = k	# index for this qubit
+        for name in self.qubitnames:    # create index for name->idx translate
+            self.qbtab[name] = []   # array of gates on this qubit
+            self.qb2idx[name] = k   # index for this qubit
             # print "%% [qcircuit] qubit %s (id=%d)" % (name,k)
             k += 1
-        self.optab = []		# initialize table of gates
-        self.circuit = []	# initialize table of circuit timesteps
-        self.matrix = []	# initialize null circuit matrix
+        self.optab = []     # initialize table of gates
+        self.circuit = []   # initialize table of circuit timesteps
+        self.matrix = []    # initialize null circuit matrix
 
-    def setnames(self,names,types):	# set bit names and types (+ initval)
+    def setnames(self,names,types): # set bit names and types (+ initval)
 
-        def do_name(n,type):		# set names & extract initial values
-            tmp = n.split(',')			# check for initial value
-            self.qubitnames.append(tmp[0])	# add to name list
-            self.is_cbit[tmp[0]] = type		# 0 = qubit, 1 = cbit
+        def do_name(n,type):        # set names & extract initial values
+            tmp = n.split(',')          # check for initial value
+            self.qubitnames.append(tmp[0])  # add to name list
+            self.is_cbit[tmp[0]] = type     # 0 = qubit, 1 = cbit
             if(len(tmp)>1):
-                self.initval[tmp[0]] = tmp[1]	# add initial value for qubit
+                self.initval[tmp[0]] = tmp[1]   # add initial value for qubit
 
         self.qubitnames = []
-        for k in range(len(names)):		# loop over qubit names
-            do_name(names[k],types[k])		# process name and type
+        for k in range(len(names)):     # loop over qubit names
+            do_name(names[k],types[k])      # process name and type
 
-    def add_op(self,gate):	# add gate to circuit
+    def add_op(self,gate):  # add gate to circuit
 
-        self.optab.append(gate)		# put gate into table of gates
-        gate.id = len(self.optab)-1	# give the gate a unique ID number
+        self.optab.append(gate)     # put gate into table of gates
+        gate.id = len(self.optab)-1 # give the gate a unique ID number
         # print "%% adding op %s(%s) IDs: %s" % (gate.name,gate.args,
         #                                       join(gate.xy.values(),','))
         
-        for qb in gate.qubits:		# put gate on qubits it acts upon
-            if((qb in self.qbtab)==0):	# check for syntax error
+        for qb in gate.qubits:      # put gate on qubits it acts upon
+            if((qb in self.qbtab)==0):  # check for syntax error
                 s = (qb,gate.linenum,gate.name + ' ' + gate.args)
                 do_error('[qcircuit] No qubit %s in line %d: "%s"' % s)
-            if(len(self.qbtab[qb])==0):	# if first gate, timestep = 1
+            if(len(self.qbtab[qb])==0): # if first gate, timestep = 1
                 ts = 1
-            else:			# otherwise, timestep = last+1
+            else:           # otherwise, timestep = last+1
                 ts = self.optab[self.qbtab[qb][-1]].timeseq+1
             self.qbtab[qb].append(gate.id)
-            if(ts>gate.timeseq):	# set timeseq number for gate
-                gate.timeseq = ts	# to be largest of its qubits
+            if(ts>gate.timeseq):    # set timeseq number for gate
+                gate.timeseq = ts   # to be largest of its qubits
 
-        gate.make_id(self.qb2idx)	# make gate ID's (do after timestep)
+        gate.make_id(self.qb2idx)   # make gate ID's (do after timestep)
 
-        if(gate.timeseq > len(self.circuit)):	# add new timestep if necessary
+        if(gate.timeseq > len(self.circuit)):   # add new timestep if necessary
             self.circuit.append([])
-        self.circuit[gate.timeseq-1].append(gate.id)	# add gate to circuit
+        self.circuit[gate.timeseq-1].append(gate.id)    # add gate to circuit
         
-    def output_sequence(self, fileName):	# output time-sequence of gates
+    def output_sequence(self, fileName):    # output time-sequence of gates
 
         try: 
             f = open(fileName,'w')
@@ -519,10 +520,10 @@ class qcircuit:		# quantum circuit class
             print (fileName + " may not exist. Verify.")
             return
         
-        k = 1				# timestep counter
-        for timestep in self.circuit:	# loop over timesteps
+        k = 1               # timestep counter
+        for timestep in self.circuit:   # loop over timesteps
             f.write("%%  Time %02d: \n" % k )
-            for g in timestep:		# loop over events in this timestep
+            for g in timestep:      # loop over events in this timestep
                 op = self.optab[g]
                 f.write("%%    Gate %02d %s(%s) \n" % (op.id,
                                                      op.name,op.args))
@@ -530,7 +531,7 @@ class qcircuit:		# quantum circuit class
         f.write("\n")
         f.close()
 
-    def output_matrix(self, fileName):	# output circuit matrix, of qubit vs timestep
+    def output_matrix(self, fileName):  # output circuit matrix, of qubit vs timestep
 
         try: 
             f = open(fileName,'a')
@@ -538,69 +539,72 @@ class qcircuit:		# quantum circuit class
             print (fileName + " may not exist. Verify.")
             return
 
-        if(len(self.matrix)==0):	# make circuit matrix if not done
+        if(len(self.matrix)==0):    # make circuit matrix if not done
             self.make_matrix()
 
         k = 0
         f.write("% Qubit circuit matrix:\n%")
-        for y in self.matrix:	# loop over qubits
-            f.write('%% %s: %s \n' % (self.qubitnames[k],join(y,', ')))
+        for y in self.matrix:   # loop over qubits
+            toPrint = self.qubitnames[k]
+            toPrint2 = ",".join(y)
+            #f.write('%% %s: %s \n' % (self.qubitnames[k],join(y,', ')))
+            f.write('%% %s: %s \n' % (toPrint, toPrint2))
             k += 1
 
         f.close()    
 
-    def make_matrix(self):	# make circuit matrix, of qubit vs timestep
+    def make_matrix(self):  # make circuit matrix, of qubit vs timestep
         
         self.matrix = []
-        ntime = len(self.circuit)+2	# total number of timsteps
-        wires = ['n','N']		# single or double wire for qubit/cbit
+        ntime = len(self.circuit)+2 # total number of timsteps
+        wires = ['n','N']       # single or double wire for qubit/cbit
 
-        for qb in self.qubitnames:	# loop over qubits
-            self.matrix.append([])	# start with empty row
-            k = 1			# timestep counter
-            cbit = self.is_cbit[qb]	# cbit=0 means qubit type (single wire)
-            gidtab = self.qbtab[qb]	# table of gate IDs
-            for gid in gidtab:		# loop over IDs for gates on qubit
-                g = self.optab[gid]	# gate with that ID
-                while(g.timeseq>k):	# output null ops until gate acts
+        for qb in self.qubitnames:  # loop over qubits
+            self.matrix.append([])  # start with empty row
+            k = 1           # timestep counter
+            cbit = self.is_cbit[qb] # cbit=0 means qubit type (single wire)
+            gidtab = self.qbtab[qb] # table of gate IDs
+            for gid in gidtab:      # loop over IDs for gates on qubit
+                g = self.optab[gid] # gate with that ID
+                while(g.timeseq>k): # output null ops until gate acts
                     self.matrix[-1].append('%s  ' % wires[cbit])
-                    k += 1		# increment timestep  
-                g.set_bittype(qb,cbit)	# set qubit type (cbit/qubit)
+                    k += 1      # increment timestep  
+                g.set_bittype(qb,cbit)  # set qubit type (cbit/qubit)
                 self.matrix[-1].append(g.xy[qb])
-                k += 1			# increment timestep
-                if(g.texsym=='\meter'):	# if measurement gate then cbit=1
+                k += 1          # increment timestep
+                if(g.texsym=='\meter'): # if measurement gate then cbit=1
                     cbit = 1
                 if(g.texsym.find('\dmeter')>=0): # alternative measurement gate
                     cbit = 1
-                if(g.name=='measure'):	# if measurement gate then cbit=1
-                    cbit = 1		# switch to double wire
-                if(g.name=='zero'):	# if zero gate then cbit=0
-                    cbit = 0		# switch to single wire
-            while(k<ntime):		# fill in null ops until end of circuit
-                k += 1			# unless last g was space or discard
+                if(g.name=='measure'):  # if measurement gate then cbit=1
+                    cbit = 1        # switch to double wire
+                if(g.name=='zero'): # if zero gate then cbit=0
+                    cbit = 0        # switch to single wire
+            while(k<ntime):     # fill in null ops until end of circuit
+                k += 1          # unless last g was space or discard
                 if((g.name!='space')&(g.name!='discard')):
                     self.matrix[-1].append('%s  ' % wires[cbit])
 
-    def qb2label(self,qb):	# make latex format label for qubit name
+    def qb2label(self,qb):  # make latex format label for qubit name
 
         m = re.compile('([A-z]+)(\d+)').search(qb)
-        if(m):			# make num subscript if name = alpha+numbers
+        if(m):          # make num subscript if name = alpha+numbers
             label = "%s_{%s}" % (m.group(1),m.group(2))
         else:
-            label = qb			# othewise use just what was specified
+            label = qb          # othewise use just what was specified
         if(self.is_cbit[qb]):
-            if(qb in self.initval):	# qubit has initial value?
+            if(qb in self.initval): # qubit has initial value?
                 label = r'   {%s = %s}' % (label,self.initval[qb])
             else:
                 label = r'   {%s}' % (label)
         else:
-            if(qb in self.initval):	# qubit has initial value?
+            if(qb in self.initval): # qubit has initial value?
                 label = r'\qv{%s}{%s}' % (label,self.initval[qb])
             else:
                 label = r' \q{%s}' % (label)
         return(label)
 
-    def output_latex(self, fileName):	# output latex with xypic for circuit
+    def output_latex(self, fileName):   # output latex with xypic for circuit
 
         try: 
             f = open(fileName,'a')
@@ -608,7 +612,7 @@ class qcircuit:		# quantum circuit class
             print (fileName + " may not exist. Verify.")
             return
 
-        if(len(self.matrix)==0):	# make circuit matrix if not done
+        if(len(self.matrix)==0):    # make circuit matrix if not done
             self.make_matrix()
 
         f.write("\n")
@@ -621,7 +625,7 @@ class qcircuit:		# quantum circuit class
         for g in self.optab:
             strNew = g.latex()
             strNew = strNew + '\n'
-            f.write(strNew)		# output \def\gXY{foo} lines
+            f.write(strNew)     # output \def\gXY{foo} lines
 
         # now output defs for qubit labels and initial states
         f.write("\n")
@@ -637,16 +641,20 @@ class qcircuit:		# quantum circuit class
         f.write("% The quantum circuit as an xymatrix \n")
         f.write(r"\xymatrix@R=5pt@C=10pt{ "+"\n")
 
-        ntime = len(self.circuit)+2	# total number of timsteps
-        j = 0				# counter for timestep
-        stab = []			# table of strings
-        for y in self.matrix:		# loop over qubits
-            qb = self.qubitnames[j]	# qubit name
-            ops = join(map(lambda(x):'\\'+x,y),' &')
+        ntime = len(self.circuit)+2 # total number of timsteps
+        j = 0               # counter for timestep
+        stab = []           # table of strings
+        for y in self.matrix:       # loop over qubits
+            qb = self.qubitnames[j] # qubit name
+            #ops = join(map(lambda(x):'\\'+x,y),' &')
+            #ops = join(map(lambda x:'\\'+x,y),' &')
+            ops = "&".join(map(lambda x:'\\'+x,y))
             stab.append(r'\b%s & %s' % (num2name(j+1),ops)) 
-            j += 1			# increment timestep
+            j += 1          # increment timestep
         stab[0] = '    ' + stab[0]
-        f.write(join(stab,'\n\\\\  ')+'\n')
+        toWrite = '\n\\\\  '.join(stab)
+        #f.write(join(stab,'\n\\\\  ')+'\n')
+        f.write(toWrite+'\n')
         
 
         # now go through all gates and output final latex (eg vertical lines)
@@ -655,7 +663,7 @@ class qcircuit:		# quantum circuit class
         for g in self.optab:
             if(g.endtex!=""):
                 strTmp = g.endtex
-                f.write(strTmp)		# output end latex commands
+                f.write(strTmp)     # output end latex commands
 
         # now end the xymatrix & latex document
         f.write( r'}'+'\n')
@@ -708,12 +716,12 @@ GateMasterDef = {'cnot'     : ( 2 , 1 , '\o'        ),
 #-----------------------------------------------------------------------------
 # main program
 
-##qp = qasm_parser(fileinput.input())	# parse the qasm file
-##qc = qcircuit(qp.nametab,qp.typetab)	# initialize the circuit
-##for g in qp.gatetab:			# add each gate to the circuit
+##qp = qasm_parser(fileinput.input())   # parse the qasm file
+##qc = qcircuit(qp.nametab,qp.typetab)  # initialize the circuit
+##for g in qp.gatetab:          # add each gate to the circuit
 ##    qc.add_op(g)
 ##
-##print qp.comments.replace('#','%')	# output comments
-##qc.output_sequence()			# output time sequence of ops
-##qc.output_matrix()			# output matrix of qubit/timesteps
-##qc.output_latex()			# output latex code
+##print qp.comments.replace('#','%')    # output comments
+##qc.output_sequence()          # output time sequence of ops
+##qc.output_matrix()            # output matrix of qubit/timesteps
+##qc.output_latex()         # output latex code
