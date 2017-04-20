@@ -7,7 +7,7 @@ This library is Issac Chuang's qasm2circ library with the following modification
 
 ==============================
 Requirements: 
--Python 2.7 (should also be compatible with Python 3, though I have not tested it on this python version). 
+-Python 2.7 (some Python 3 compatibility, though batch mode is currently unstable for more than 6 files). 
 -Latex2e with xypic (included)
 -pdflatex 
 
